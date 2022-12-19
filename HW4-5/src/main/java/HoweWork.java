@@ -129,21 +129,38 @@ public class HoweWork {
         }
         return text;
     }
+    //сколько нужно до палиндрома?
     public String palindrome(int number){
         String n = String.valueOf(number);
+        int result = 0;
         StringBuilder stringBuilder = new StringBuilder();
         String N = String.valueOf(new StringBuilder(n).reverse());
         if (n.hashCode() != N.hashCode()){
-            if (n.length() % 2 == 0){
-                n = n.substring(0,n.length()/2) + String.valueOf(new StringBuilder(n).reverse().substring(n.length()/2));
+            if(n.length() % 2 !=0) {
+                n = n.substring(0, 1 + n.length() / 2) + String.valueOf(new StringBuilder(n).reverse().substring(n.length() / 2 + 1));
+                if (Integer.parseInt(n) < number) {
+                    n = n.substring(0, n.length() / 2) + String.valueOf(Integer.parseInt(n.substring(n.length() / 2, 1 + n.length() / 2)) + 1) + n.substring(1 + n.length() / 2);
+                }
+                result = Integer.parseInt(n);
             }
-            else {
-                n = n.substring(0,1 + n.length()/2) + String.valueOf(new StringBuilder(n).reverse().substring(n.length()/2 + 1));
+            else{
+                n = n.substring(0,n.length()/2) + String.valueOf(new StringBuilder(n).reverse().substring( n.length() / 2 ));
+                if (Integer.parseInt(n) < number) {
+                    String r = String.valueOf(n.charAt(0));
+                    for (int i = 1; i < n.length() - 1; i++){
+                        r = r + (Integer.parseInt(String.valueOf(n.charAt(i))) + 1);
+                    }
+                    r = r + String.valueOf(n.charAt(n.length() - 1));
+                    result = Integer.parseInt(r);
+                }
+                else {
+                    result = Integer.parseInt(n);
+                }
             }
-
-            return "Can not buy.Not enough to palindrome: " + (Integer.parseInt(n) - number);
+            return "Can not buy.Not enough to palindrome: " + (result - number);
         }
         return "You can buy";
+    }
     }
     //Посчитать факториал вводимого числа из консоли, при этом код должен быть максимально оптимизированным.
     public int factorial(int number){
