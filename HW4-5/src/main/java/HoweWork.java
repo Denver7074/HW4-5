@@ -269,6 +269,28 @@ public class HoweWork {
         }
         return result;
     }
+//    Необходимо получить последовательность отрезков непрерывных чисел из массива.
+//    Пример [1, 5, 6, 8, 4, 9] -> [1-1, 4-6, 8-9]
+    public String sequence(Integer[] mass){
+        String text = "";
+        List<Integer> list = List.of(mass).stream().sorted().toList();
+        for (int i = 0; i < list.size(); i++){
+            text = text + list.get(i);
+            if (i != list.size()-1 && list.get(i + 1) - list.get(i) > 1){
+                text = text + " ";
+            }
+        }
+        String[] t = text.split(" ");
+        for (int i = 0; i < t.length; i++){
+            if (t[i].length() == 1){
+                t[i] = (t[i].charAt(0) + "-" + t[i].charAt(0)).trim();
+            }
+            if (t[i].length() >= 2){
+                t[i] = (t[i].charAt(0) + "-" + t[i].charAt(t[i].length()-1)).trim();
+            }
+        }
+        return Arrays.toString(t);
+    }
 //    Верблюжий регистр
 //    "the-stealth-warrior" gets converted to "theStealthWarrior"
 //    "The_Stealth_Warrior" gets converted to "TheStealthWarrior"
